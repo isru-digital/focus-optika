@@ -114,45 +114,49 @@
   </div>
 </section>
 
-<!-- ======= VISION MODE (look through the lenses) ======= -->
-<section class="vision" id="vision" aria-label="מבט דרך העדשה">
-  <div class="vision-stage" id="visionStage" data-active="false">
-    <div class="vision-blur" aria-hidden="true"></div>
-    <svg class="vision-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <defs>
-        <clipPath id="lensClip">
-          <path d="M245 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z"/>
-          <path d="M645 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z"/>
-        </clipPath>
-        <linearGradient id="metalGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stop-color="#f4e6c6"/><stop offset=".5" stop-color="#c79a3f"/><stop offset="1" stop-color="#7d5714"/>
-        </linearGradient>
-      </defs>
-      <g id="visionLensLayer" clip-path="url(#lensClip)">
-        <image id="visionSharpImg" href="assets/img/hero.jpg" x="-60" y="-70" width="1120" height="640" preserveAspectRatio="xMidYMid slice"/>
-        <ellipse cx="300" cy="185" rx="120" ry="48" fill="#fff" opacity=".13"/>
-        <ellipse cx="700" cy="185" rx="120" ry="48" fill="#fff" opacity=".13"/>
-      </g>
-      <g id="visionFrame" fill="none" stroke="url(#metalGrad)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
-        <!-- temples: nearly horizontal, like arms worn back to the ears -->
-        <path d="M150 182 L-40 168"/>
-        <path d="M850 182 L1040 168"/>
-        <!-- rims -->
-        <path d="M245 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z"/>
-        <path d="M645 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z"/>
-        <!-- bridge over the nose -->
-        <path d="M450 168 q50 30 100 0" stroke-width="13"/>
-        <!-- subtle chromatic fringe on the glass -->
-        <path d="M245 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z" stroke="rgba(120,220,255,.35)" stroke-width="1.5" transform="translate(-3,0)"/>
-        <path d="M645 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z" stroke="rgba(255,120,180,.35)" stroke-width="1.5" transform="translate(3,0)"/>
-      </g>
-    </svg>
+<!-- ======= VISION MODE (put on the glasses -> world sharpens) ======= -->
+<section class="vision" id="vision" aria-label="שים משקפיים ותראה בבירור">
+  <div class="vision-stage" id="visionStage">
+    <div class="vision-bg" id="visionBg" role="img" aria-label="חלל אופטיקה חמים שמתחדד"></div>
     <div class="vision-scrim" aria-hidden="true"></div>
-    <div class="vision-caption">
+
+    <!-- prompt shown before the glasses go on -->
+    <div class="vision-prompt" id="visionPrompt">
       <p class="vision-kicker">מצב ראייה</p>
-      <h2 class="vision-title">זה מה שאתה מפספס<br>בלי <em>המשקפיים הנכונים</em></h2>
-      <p class="vision-sub vision-hint">הזז את העכבר והבט מסביב · בנייד - הטה את הטלפון</p>
-      <button class="vision-gyro" id="visionGyro" type="button" hidden>הפעל מבט בתנועה 📱</button>
+      <h2 class="vision-headline">שים משקפיים</h2>
+      <p class="vision-hint">והעולם נכנס לפוקוס</p>
+    </div>
+
+    <!-- glasses that fly in from depth (3D) -->
+    <div class="vision-glasses" id="visionGlasses" aria-hidden="true">
+      <svg viewBox="0 0 920 340" preserveAspectRatio="xMidYMid meet">
+        <defs>
+          <linearGradient id="vMetal" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#f6e9cb"/><stop offset=".5" stop-color="#c99b3f"/><stop offset="1" stop-color="#7d5714"/>
+          </linearGradient>
+        </defs>
+        <!-- glass fill -->
+        <g fill="rgba(150,190,220,.16)">
+          <path d="M280 90 h70 a70 70 0 0 1 70 70 v20 a70 70 0 0 1 -70 70 h-70 a70 70 0 0 1 -70 -70 v-20 a70 70 0 0 1 70 -70 Z"/>
+          <path d="M570 90 h70 a70 70 0 0 1 70 70 v20 a70 70 0 0 1 -70 70 h-70 a70 70 0 0 1 -70 -70 v-20 a70 70 0 0 1 70 -70 Z"/>
+        </g>
+        <ellipse cx="280" cy="140" rx="80" ry="30" fill="#fff" opacity=".18"/>
+        <ellipse cx="570" cy="140" rx="80" ry="30" fill="#fff" opacity=".18"/>
+        <!-- frame -->
+        <g fill="none" stroke="url(#vMetal)" stroke-width="13" stroke-linejoin="round" stroke-linecap="round">
+          <path d="M210 128 L55 106"/>
+          <path d="M710 128 L865 106"/>
+          <path d="M280 90 h70 a70 70 0 0 1 70 70 v20 a70 70 0 0 1 -70 70 h-70 a70 70 0 0 1 -70 -70 v-20 a70 70 0 0 1 70 -70 Z"/>
+          <path d="M570 90 h70 a70 70 0 0 1 70 70 v20 a70 70 0 0 1 -70 70 h-70 a70 70 0 0 1 -70 -70 v-20 a70 70 0 0 1 70 -70 Z"/>
+          <path d="M420 120 q40 26 80 0" stroke-width="12"/>
+        </g>
+      </svg>
+    </div>
+
+    <!-- caption shown once the world is sharp -->
+    <div class="vision-caption" id="visionCaption">
+      <p class="vision-kicker">עכשיו רואים</p>
+      <h2 class="vision-title">ככה נראה העולם<br>עם <em>המשקפיים הנכונים</em></h2>
     </div>
   </div>
 </section>

@@ -108,74 +108,59 @@
     });
   }
 
-  /* ---------- vision mode: look through the lenses (parallax + idle auto-loop) ---------- */
+  /* ---------- vision mode: "put on the glasses" reveal + gentle parallax ---------- */
+  var vision = document.getElementById('vision');
   var vStage = document.getElementById('visionStage');
-  if (vStage && !reduceMotion) {
-    var vImg = document.getElementById('visionSharpImg');
-    var vFrame = document.getElementById('visionFrame');
-    var vTargetX = 0, vTargetY = 0, vCurX = 0, vCurY = 0;
-    var vActive = false, vRAF = null, vAuto = 0, vLastInput = -99999, vClock = 0;
-
-    var renderVision = function () {
-      vClock += 1;
-      // when the user hasn't moved recently, drive a slow automatic sweep (the "loop")
-      if (vClock - vLastInput > 90) {
-        vAuto += 0.012;
-        vTargetX = Math.sin(vAuto) * 0.8;
-        vTargetY = Math.cos(vAuto * 0.7) * 0.55;
-      }
-      vCurX += (vTargetX - vCurX) * 0.08;
-      vCurY += (vTargetY - vCurY) * 0.08;
-      // sharp world drifts one way, frame drifts the other => depth/parallax
-      if (vImg) vImg.setAttribute('transform', 'translate(' + (vCurX * 34).toFixed(1) + ',' + (vCurY * 26).toFixed(1) + ')');
-      if (vFrame) vFrame.setAttribute('transform', 'translate(' + (-vCurX * 12).toFixed(1) + ',' + (-vCurY * 9).toFixed(1) + ')');
-      if (vActive) vRAF = requestAnimationFrame(renderVision); else vRAF = null;
-    };
-    var startVision = function () {
-      if (!vActive) { vActive = true; if (!vRAF) vRAF = requestAnimationFrame(renderVision); }
-    };
-    var stopVision = function () { vActive = false; };
-    var nudgeVision = function (nx, ny) {
-      vTargetX = Math.max(-1, Math.min(1, nx));
-      vTargetY = Math.max(-1, Math.min(1, ny));
-      vLastInput = vClock;   // pause the auto-loop while the user is driving
-      startVision();
-    };
-    // only animate while the section is on screen
+  var vBg = document.getElementById('visionBg');
+  if (vision && vStage && vBg && !reduceMotion) {
+    // replay the put-on-glasses sequence every time the section enters view
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (ents) {
-        ents.forEach(function (en) { if (en.isIntersecting) startVision(); else stopVision(); });
-      }, { threshold: 0.15 }).observe(vStage);
-    } else { startVision(); }
+        ents.forEach(function (en) {
+          if (en.isIntersecting) vision.classList.add('play');
+          else vision.classList.remove('play');   // reset so it plays again next time
+        });
+      }, { threshold: 0.45 }).observe(vStage);
+    } else {
+      vision.classList.add('play');
+    }
+
+    // gentle parallax on the (now sharp) world - mouse, touch, or device tilt + idle drift
+    var pTargetX = 0, pTargetY = 0, pCurX = 0, pCurY = 0, pActive = false, pRAF = null, pAuto = 0, pLastInput = -99999, pClock = 0;
+    var renderParallax = function () {
+      pClock += 1;
+      if (pClock - pLastInput > 80) {           // idle -> slow automatic drift ("movement")
+        pAuto += 0.01;
+        pTargetX = Math.sin(pAuto) * 0.7;
+        pTargetY = Math.cos(pAuto * 0.7) * 0.5;
+      }
+      pCurX += (pTargetX - pCurX) * 0.07;
+      pCurY += (pTargetY - pCurY) * 0.07;
+      vBg.style.setProperty('--px', (pCurX * 18).toFixed(1) + 'px');
+      vBg.style.setProperty('--py', (pCurY * 14).toFixed(1) + 'px');
+      if (pActive) pRAF = requestAnimationFrame(renderParallax); else pRAF = null;
+    };
+    var startParallax = function () { if (!pActive) { pActive = true; if (!pRAF) pRAF = requestAnimationFrame(renderParallax); } };
+    var stopParallax = function () { pActive = false; };
+    var nudge = function (nx, ny) {
+      pTargetX = Math.max(-1, Math.min(1, nx));
+      pTargetY = Math.max(-1, Math.min(1, ny));
+      pLastInput = pClock; startParallax();
+    };
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (ents) {
+        ents.forEach(function (en) { if (en.isIntersecting) startParallax(); else stopParallax(); });
+      }, { threshold: 0.2 }).observe(vStage);
+    } else { startParallax(); }
     vStage.addEventListener('pointermove', function (e) {
       var r = vStage.getBoundingClientRect();
-      nudgeVision(((e.clientX - r.left) / r.width - 0.5) * 2, ((e.clientY - r.top) / r.height - 0.5) * 2);
+      nudge(((e.clientX - r.left) / r.width - 0.5) * 2, ((e.clientY - r.top) / r.height - 0.5) * 2);
     }, { passive: true });
-    vStage.addEventListener('touchmove', function (e) {
-      if (!e.touches.length) return;
-      var r = vStage.getBoundingClientRect();
-      nudgeVision(((e.touches[0].clientX - r.left) / r.width - 0.5) * 2, ((e.touches[0].clientY - r.top) / r.height - 0.5) * 2);
-    }, { passive: true });
-
-    // device tilt (gyro) parallax - the "VR" feel on phones
-    var gyroHandler = function (e) {
-      if (e.gamma == null) return;
-      nudgeVision(Math.max(-1, Math.min(1, e.gamma / 35)), Math.max(-1, Math.min(1, (e.beta - 45) / 35)));
-    };
-    var gyroBtn = document.getElementById('visionGyro');
-    var needsPermission = typeof DeviceOrientationEvent !== 'undefined' &&
-      typeof DeviceOrientationEvent.requestPermission === 'function';
-    if ('ontouchstart' in window) {
-      if (needsPermission) {
-        gyroBtn.hidden = false;
-        gyroBtn.addEventListener('click', function () {
-          DeviceOrientationEvent.requestPermission().then(function (state) {
-            if (state === 'granted') { window.addEventListener('deviceorientation', gyroHandler); gyroBtn.hidden = true; }
-          }).catch(function () {});
-        });
-      } else if (typeof DeviceOrientationEvent !== 'undefined') {
-        window.addEventListener('deviceorientation', gyroHandler);
-      }
+    if (typeof DeviceOrientationEvent !== 'undefined') {
+      window.addEventListener('deviceorientation', function (e) {
+        if (e.gamma == null) return;
+        nudge(Math.max(-1, Math.min(1, e.gamma / 30)), Math.max(-1, Math.min(1, (e.beta - 45) / 30)));
+      });
     }
   }
 

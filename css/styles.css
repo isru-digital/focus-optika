@@ -191,45 +191,72 @@ button{font:inherit;cursor:pointer}
 .row-4{font-size:clamp(.95rem,1.8vw,1.15rem);font-family:var(--font-body);font-weight:600;color:var(--ink-soft);margin-top:10px}
 .row-5{font-size:.72rem;font-family:var(--font-body);color:#a99c86;margin-top:8px;letter-spacing:.02em}
 
-/* ---------- vision mode (look through the lenses) ---------- */
+/* ---------- vision mode: "put on the glasses" -> world sharpens ----------
+   Scroll into view triggers .play: prompt fades, glasses fly in from depth,
+   the blurred world snaps to sharp, caption rises. Works on any screen -
+   the glasses FIT (never overflow) and everything is centered. */
 .vision{position:relative;background:#0a0806;overflow:hidden}
-.vision-stage{position:relative;height:100vh;min-height:600px;width:100%;isolation:isolate}
-/* naked-eye world behind everything: dark + blurred */
-.vision-blur{
-  position:absolute;inset:-6%;z-index:0;background:#0a0806;
+.vision-stage{position:relative;height:100vh;min-height:560px;display:grid;place-items:center;isolation:isolate}
+/* the world - blurred by default, driven sharp by JS var --clear (0..1) + parallax --px/--py */
+.vision-bg{
+  position:absolute;inset:-5%;z-index:0;background:#0a0806;
   background-image:image-set(url("../assets/img/hero.webp") type("image/webp"),url("../assets/img/hero.jpg") type("image/jpeg"));
   background-size:cover;background-position:center;
-  filter:blur(24px) brightness(.32) saturate(.5);transform:scale(1.12);
+  filter:blur(calc((1 - var(--clear,0)) * 20px)) brightness(calc(0.4 + var(--clear,0) * 0.55)) saturate(calc(0.5 + var(--clear,0) * 0.6));
+  transform:scale(1.1) translate(var(--px,0px),var(--py,0px));
+  transition:filter .9s var(--ease) .4s;will-change:filter,transform;
 }
-.vision-blur::after{content:"";position:absolute;inset:0;background:radial-gradient(110% 90% at 50% 45%,transparent 30%,rgba(6,4,3,.85) 100%)}
-/* the glasses SVG (lenses reveal the sharp world; frame drawn on top) */
-.vision-svg{position:absolute;inset:0;z-index:1;width:100%;height:100%;display:block;
-  filter:drop-shadow(0 30px 60px rgba(0,0,0,.6));}
-#visionLensLayer image{transform-box:fill-box;transform-origin:center}
-#visionFrame{transition:transform .1s linear}
-/* scrim so the caption stays legible below the glasses */
+/* glasses land -> the world snaps into focus */
+.vision.play .vision-bg{--clear:1}
 .vision-scrim{
-  position:absolute;z-index:1;left:0;right:0;bottom:0;height:42%;pointer-events:none;
-  background:linear-gradient(0deg,rgba(8,6,4,.92) 0%,rgba(8,6,4,.7) 45%,transparent 100%);
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background:radial-gradient(120% 90% at 50% 45%,transparent 42%,rgba(6,4,3,.72) 100%),linear-gradient(0deg,rgba(6,4,3,.6),transparent 55%);
 }
-/* caption */
+/* prompt (before) */
+.vision-prompt{
+  position:relative;z-index:3;text-align:center;color:var(--paper);padding:0 24px;
+  transition:opacity .5s var(--ease),transform .5s var(--ease);
+}
+.vision.play .vision-prompt{opacity:0;transform:translateY(-18px);pointer-events:none}
+.vision-headline{
+  font-family:var(--font-display);font-weight:900;font-size:clamp(2.2rem,7vw,4rem);line-height:1.1;
+  text-shadow:0 4px 40px rgba(0,0,0,.8);margin-bottom:10px;
+}
+.vision-headline::after{content:" 👓"}
+.vision-hint{font-size:clamp(1rem,2.4vw,1.3rem);color:#e9dfce;text-shadow:0 2px 20px rgba(0,0,0,.9)}
+/* glasses that fly in from depth */
+.vision-glasses{
+  position:absolute;z-index:2;width:min(86vw,680px);pointer-events:none;opacity:0;
+  filter:drop-shadow(0 24px 50px rgba(0,0,0,.55));
+  transform:perspective(900px) translate3d(0,-24px,-540px) rotateX(38deg) scale(.5);
+}
+.vision-glasses svg{width:100%;height:auto;display:block}
+.vision.play .vision-glasses{animation:glassesOn 1.5s var(--ease) forwards}
+@keyframes glassesOn{
+  0%{opacity:0;transform:perspective(900px) translate3d(0,-24px,-540px) rotateX(38deg) scale(.5)}
+  45%{opacity:1;transform:perspective(900px) translate3d(0,0,0) rotateX(0deg) scale(1)}
+  70%{opacity:1;transform:perspective(900px) scale(1.04)}
+  100%{opacity:0;transform:perspective(900px) scale(1.08)}
+}
+/* caption (after) */
 .vision-caption{
-  position:absolute;z-index:2;left:0;right:0;bottom:5vh;text-align:center;color:var(--paper);
-  padding-inline:20px;pointer-events:none;
+  position:absolute;z-index:3;left:0;right:0;bottom:7vh;text-align:center;color:var(--paper);
+  padding:0 24px;opacity:0;transform:translateY(26px);pointer-events:none;
 }
+.vision.play .vision-caption{animation:visCapIn .7s var(--ease) 1.25s forwards}
+@keyframes visCapIn{to{opacity:1;transform:none}}
 .vision-kicker{font-weight:700;letter-spacing:.4em;font-size:.78rem;color:var(--honey);text-transform:uppercase;margin-bottom:12px}
 .vision-title{
   font-family:var(--font-display);font-weight:900;
-  font-size:clamp(1.8rem,4.6vw,3.4rem);line-height:1.14;margin-bottom:14px;
+  font-size:clamp(1.7rem,4.4vw,3rem);line-height:1.15;
   text-shadow:0 4px 40px rgba(0,0,0,.85);
 }
 .vision-title em{font-style:normal;color:var(--honey)}
-.vision-sub{font-size:clamp(.98rem,2vw,1.2rem);color:#e9dfce;text-shadow:0 2px 20px rgba(0,0,0,.9)}
-.vision-hint{display:inline-flex;align-items:center;gap:8px;background:rgba(10,8,6,.45);border:1px solid rgba(250,247,241,.2);border-radius:999px;padding:8px 18px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
-.vision-gyro{
-  pointer-events:auto;margin-top:14px;display:inline-block;
-  background:rgba(180,121,31,.9);color:#fff;border:0;border-radius:999px;
-  min-height:44px;padding:10px 22px;font-weight:700;
+@media (prefers-reduced-motion:reduce){
+  .vision-glasses{display:none}
+  .vision-bg{filter:blur(0) brightness(.9) saturate(1.05)}
+  .vision-prompt{display:none}
+  .vision-caption{opacity:1;transform:none;animation:none}
 }
 
 /* ---------- stats ---------- */
@@ -270,7 +297,7 @@ section{scroll-margin-top:80px}
   background:var(--white);border:1px solid var(--line);border-radius:var(--radius);
   overflow:hidden;position:relative;
   transition:transform .3s var(--ease),box-shadow .35s var(--ease),filter .35s var(--ease),opacity .35s var(--ease);
-  cursor:pointer;transform-style:preserve-3d;will-change:transform;
+  cursor:pointer;
 }
 /* rest state: a whisper of blur, like the world before glasses */
 .product-card .product-img{
@@ -280,13 +307,20 @@ section{scroll-margin-top:80px}
 .product-gloss{
   position:absolute;inset:0;z-index:3;pointer-events:none;opacity:0;
   background:radial-gradient(180px 180px at var(--gx,50%) var(--gy,0%),rgba(255,255,255,.5),transparent 60%);
-  transition:opacity .3s var(--ease);mix-blend-mode:soft-light;
+  transition:opacity .3s var(--ease);
 }
-@media (hover:hover){.product-card:hover .product-gloss{opacity:1}}
+/* gloss + 3D tilt are desktop-only; on touch they cause layer-eviction (blank cards) */
+@media (hover:hover){
+  .product-card{transform-style:preserve-3d;will-change:transform}
+  .product-card .product-gloss{mix-blend-mode:soft-light}
+  .product-card:hover .product-gloss{opacity:1}
+}
+@media (hover:none){.product-gloss{display:none}}
 .product-card .product-img img{
   width:100%;height:100%;object-fit:cover;
   filter:blur(2.5px) saturate(.85);
-  transform:scale(1.02);
+  transform:scale(1.02) translateZ(0);
+  backface-visibility:hidden;-webkit-backface-visibility:hidden;
   transition:filter .4s var(--ease),transform .5s var(--ease);
 }
 .product-card .badge{
