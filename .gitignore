@@ -1,0 +1,7 @@
+# dev-only, not for GitHub Pages
+node_modules/
+package.json
+package-lock.json
+_compress.js
+_serve.js
+assets/img/_orig/

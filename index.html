@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>אופטיקה פוקוס | רואים את העולם חד יותר</title>
+<meta name="description" content="אופטיקה פוקוס - משקפי ראייה ומשקפי שמש בהתאמה אישית. בדיקת ראייה מקצועית, התאמת מסגרת אונליין וליווי אישי עד לתוצאה מושלמת.">
+<meta property="og:title" content="אופטיקה פוקוס | רואים את העולם חד יותר">
+<meta property="og:description" content="משקפי ראייה ומשקפי שמש בהתאמה אישית, בדיקת ראייה מקצועית והתאמת מסגרת אונליין.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700&family=Frank+Ruhl+Libre:wght@400;500;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='30' cy='55' r='20' fill='none' stroke='%23b4791f' stroke-width='7'/%3E%3Ccircle cx='70' cy='55' r='20' fill='none' stroke='%23b4791f' stroke-width='7'/%3E%3Cpath d='M50 55 q0 -8 -0 0 M48 52 q2 -5 4 0' stroke='%23b4791f' stroke-width='6' fill='none'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<a class="skip-link" href="#collection">דלגו לתוכן הראשי</a>
+
+<!-- ======= HEADER ======= -->
+<header class="site-header" id="siteHeader">
+  <nav class="nav container" aria-label="ניווט ראשי">
+    <a href="#top" class="brand" aria-label="אופטיקה פוקוס - דף הבית">
+      <svg class="brand-glasses" viewBox="0 0 120 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4"><circle cx="30" cy="26" r="16"/><circle cx="90" cy="26" r="16"/><path d="M46 24 q14 -10 28 0"/><path d="M14 22 L4 16 M106 22 L116 16"/></g></svg>
+      <span class="brand-name">אופטיקה <strong>פוקוס</strong></span>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#collection">משקפי ראייה</a></li>
+      <li><a href="#sun">משקפי שמש</a></li>
+      <li><a href="#finder">התאמה אונליין</a></li>
+      <li><a href="#exam">בדיקת ראייה</a></li>
+      <li><a href="#visit">ביקור בחנות</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a class="btn btn-ghost btn-sm" href="tel:+97235550000">03-555-0000</a>
+      <a class="btn btn-primary btn-sm" href="#exam">קביעת תור</a>
+    </div>
+    <button class="nav-burger" id="navBurger" aria-label="פתיחת תפריט" aria-expanded="false" aria-controls="navLinks">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+</header>
+
+<main id="top">
+
+<!-- ======= CINEMATIC SCROLL JOURNEY ======= -->
+<section class="cinema" id="cinema" aria-label="מסע קולנועי">
+  <div class="cinema-track" id="cinemaTrack">
+    <div class="cinema-stage">
+      <!-- scenes (crossfade on scroll) -->
+      <div class="cine-scene is-blur" data-scene="0">
+        <div class="cine-img" style="background-image:image-set(url('assets/img/storefront.webp') type('image/webp'),url('assets/img/storefront.jpg') type('image/jpeg'))"></div>
+      </div>
+      <div class="cine-scene" data-scene="1">
+        <div class="cine-img cine-img-alt" style="background-image:image-set(url('assets/img/hero.webp') type('image/webp'),url('assets/img/hero.jpg') type('image/jpeg'))"></div>
+      </div>
+      <div class="cine-scene" data-scene="2">
+        <div class="cine-img" style="background-image:image-set(url('assets/img/exam-room.webp') type('image/webp'),url('assets/img/exam-room.jpg') type('image/jpeg'))"></div>
+      </div>
+      <div class="cine-shade" aria-hidden="true"></div>
+
+      <!-- captions (one per scene, JS toggles .on) -->
+      <div class="cine-captions container">
+        <div class="cine-cap on" data-cap="0">
+          <p class="cine-kicker">אופטיקה פוקוס</p>
+          <h1 class="cine-title">רואים את העולם<br><em>חד יותר</em></h1>
+          <p class="cine-sub">בוטיק אופטיקה שבו כל זוג עיניים מקבל התאמה אישית - ותוצאה שרואים.</p>
+        </div>
+        <div class="cine-cap" data-cap="1">
+          <p class="cine-kicker">הקולקציה</p>
+          <h2 class="cine-title">מאות מסגרות.<br><em>התאמה אחת מושלמת.</em></h2>
+          <p class="cine-sub">מהקלאסי ועד הנועז - כל מסגרת נבחרה ביד, ומחכה שתמדוד אותה.</p>
+        </div>
+        <div class="cine-cap" data-cap="2">
+          <p class="cine-kicker">בדיקת ראייה</p>
+          <h2 class="cine-title">30 דקות<br><em>שמשנות איך אתה רואה הכל</em></h2>
+          <p class="cine-sub">אופטומטריסט מוסמך, ציוד מתקדם, וליווי עד לתוצאה המדויקת.</p>
+          <div class="cine-actions">
+            <a class="btn btn-primary btn-lg" href="#exam">לקביעת בדיקת ראייה</a>
+            <a class="btn btn-outline btn-lg" href="#collection">לקולקציה</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUD: scene counter + progress -->
+      <div class="cine-hud" aria-hidden="true">
+        <div class="cine-count"><span id="cineNum">01</span><i>/ 03</i></div>
+        <div class="cine-progress"><span id="cineBar"></span></div>
+      </div>
+      <div class="cine-cue" aria-hidden="true"><span></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= SNELLEN CHART STRIP ======= -->
+<section class="chart-strip" id="chart" aria-label="לוח ראייה">
+  <div class="container chart-inner">
+    <p class="chart-row row-1 reveal">רואים</p>
+    <p class="chart-row row-2 reveal">את ההבדל</p>
+    <p class="chart-row row-3 reveal">כבר מהשנייה הראשונה</p>
+    <p class="chart-row row-4 reveal">בדיקת ראייה מקצועית · עדשות בהתאמה אישית · מאות מסגרות</p>
+    <p class="chart-row row-5 reveal" aria-hidden="true">אם אתם מצליחים לקרוא את השורה הזאת - כנראה שאתם כבר לקוחות שלנו</p>
+  </div>
+</section>
+
+<!-- ======= STATS ======= -->
+<section class="stats" aria-label="נתונים">
+  <div class="container stats-grid">
+    <div class="stat reveal"><span class="stat-num" data-count="18">0</span><span class="stat-label">שנות מומחיות</span></div>
+    <div class="stat reveal"><span class="stat-num" data-count="9400">0</span><span class="stat-label">זוגות עיניים מרוצות</span></div>
+    <div class="stat reveal"><span class="stat-num" data-count="420">0</span><span class="stat-label">מסגרות בתצוגה</span></div>
+    <div class="stat reveal"><span class="stat-num" data-count="48">0</span><span class="stat-label">שעות עד משקפיים מוכנים</span></div>
+  </div>
+</section>
+
+<!-- ======= VISION MODE (look through the lenses) ======= -->
+<section class="vision" id="vision" aria-label="מבט דרך העדשה">
+  <div class="vision-stage" id="visionStage" data-active="false">
+    <div class="vision-blur" aria-hidden="true"></div>
+    <svg class="vision-svg" viewBox="0 0 1000 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <defs>
+        <clipPath id="lensClip">
+          <path d="M245 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z"/>
+          <path d="M645 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z"/>
+        </clipPath>
+        <linearGradient id="metalGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#f4e6c6"/><stop offset=".5" stop-color="#c79a3f"/><stop offset="1" stop-color="#7d5714"/>
+        </linearGradient>
+      </defs>
+      <g id="visionLensLayer" clip-path="url(#lensClip)">
+        <image id="visionSharpImg" href="assets/img/hero.jpg" x="-60" y="-70" width="1120" height="640" preserveAspectRatio="xMidYMid slice"/>
+        <ellipse cx="300" cy="185" rx="120" ry="48" fill="#fff" opacity=".13"/>
+        <ellipse cx="700" cy="185" rx="120" ry="48" fill="#fff" opacity=".13"/>
+      </g>
+      <g id="visionFrame" fill="none" stroke="url(#metalGrad)" stroke-width="12" stroke-linejoin="round" stroke-linecap="round">
+        <!-- temples: nearly horizontal, like arms worn back to the ears -->
+        <path d="M150 182 L-40 168"/>
+        <path d="M850 182 L1040 168"/>
+        <!-- rims -->
+        <path d="M245 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z"/>
+        <path d="M645 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z"/>
+        <!-- bridge over the nose -->
+        <path d="M450 168 q50 30 100 0" stroke-width="13"/>
+        <!-- subtle chromatic fringe on the glass -->
+        <path d="M245 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z" stroke="rgba(120,220,255,.35)" stroke-width="1.5" transform="translate(-3,0)"/>
+        <path d="M645 135 h110 a95 95 0 0 1 95 95 v20 a95 95 0 0 1 -95 95 h-110 a95 95 0 0 1 -95 -95 v-20 a95 95 0 0 1 95 -95 Z" stroke="rgba(255,120,180,.35)" stroke-width="1.5" transform="translate(3,0)"/>
+      </g>
+    </svg>
+    <div class="vision-scrim" aria-hidden="true"></div>
+    <div class="vision-caption">
+      <p class="vision-kicker">מצב ראייה</p>
+      <h2 class="vision-title">זה מה שאתה מפספס<br>בלי <em>המשקפיים הנכונים</em></h2>
+      <p class="vision-sub vision-hint">הזז את העכבר והבט מסביב · בנייד - הטה את הטלפון</p>
+      <button class="vision-gyro" id="visionGyro" type="button" hidden>הפעל מבט בתנועה 📱</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======= EYEGLASSES COLLECTION ======= -->
+<section class="collection" id="collection">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="section-kicker">הקולקציה שלנו</p>
+      <h2>משקפי ראייה</h2>
+      <p class="section-sub">געו במסגרת ותראו איך היא קופצת לפוקוס. כל השאר? קצת מטושטש, בדיוק כמו בחיים בלי המשקפיים הנכונים.</p>
+    </header>
+    <div class="product-grid focus-grid" id="eyeGrid"></div>
+  </div>
+</section>
+
+<!-- ======= WHY US / LENS TECH ======= -->
+<section class="why" id="why">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="section-kicker">למה פוקוס</p>
+      <h2>לא רק יפים. מדויקים.</h2>
+    </header>
+    <div class="why-grid">
+      <article class="why-card reveal">
+        <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3.5"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></div>
+        <h3>בדיקת ראייה מקצועית</h3>
+        <p>אופטומטריסט מוסמך, ציוד מתקדם ובדיקה יסודית של 30 דקות. לא עוד "אחד או שתיים?" בריצה.</p>
+      </article>
+      <article class="why-card reveal">
+        <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 14c0-4 3-7 8-7s8 3 8 7"/><circle cx="8" cy="15" r="3.4"/><circle cx="16" cy="15" r="3.4"/><path d="M11.4 15h1.2"/></svg></div>
+        <h3>עדשות בהתאמה אישית</h3>
+        <p>מולטיפוקל, אנטי רפלקס, סינון אור כחול והרכבות דקות במיוחד - מותאם למרשם, לפנים ולאורח החיים שלכם.</p>
+      </article>
+      <article class="why-card reveal">
+        <div class="why-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4.5"/></svg></div>
+        <h3>אחריות ושירות אמיתיים</h3>
+        <p>התאמות חוזרות חינם, תיקונים מהירים ואחריות מלאה לשנה. קונים פעם אחת - מלווים אתכם לאורך כל הדרך.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ======= SUNGLASSES ======= -->
+<section class="sun" id="sun">
+  <div class="container">
+    <header class="section-head section-head-light reveal">
+      <p class="section-kicker">קיץ בעיניים רגועות</p>
+      <h2>משקפי שמש</h2>
+      <p class="section-sub">100% הגנת UV, עדשות פולארויד, וגם אפשרות לשמש עם המרשם שלכם.</p>
+    </header>
+    <div class="product-grid sun-grid focus-grid" id="sunGrid"></div>
+  </div>
+</section>
+
+<!-- ======= FRAME FINDER ======= -->
+<section class="finder" id="finder">
+  <div class="container finder-wrap">
+    <header class="section-head reveal">
+      <p class="section-kicker">התאמת מסגרת אונליין</p>
+      <h2>3 שאלות. מסגרת אחת שנראית עליכם מיליון.</h2>
+    </header>
+    <div class="finder-box reveal" id="finderBox">
+      <div class="finder-progress" aria-hidden="true"><span id="finderBar"></span></div>
+
+      <div class="finder-step" data-step="1">
+        <h3>איזו צורת פנים הכי דומה לשלכם?</h3>
+        <div class="finder-options">
+          <button type="button" class="finder-opt" data-q="face" data-v="round"><svg viewBox="0 0 60 60" aria-hidden="true"><ellipse cx="30" cy="30" rx="20" ry="22" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>עגולות</button>
+          <button type="button" class="finder-opt" data-q="face" data-v="square"><svg viewBox="0 0 60 60" aria-hidden="true"><rect x="11" y="9" width="38" height="42" rx="9" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>מרובעות</button>
+          <button type="button" class="finder-opt" data-q="face" data-v="oval"><svg viewBox="0 0 60 60" aria-hidden="true"><ellipse cx="30" cy="30" rx="16" ry="23" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>אובליות</button>
+          <button type="button" class="finder-opt" data-q="face" data-v="heart"><svg viewBox="0 0 60 60" aria-hidden="true"><path d="M12 18 Q30 4 48 18 Q46 40 30 52 Q14 40 12 18Z" fill="none" stroke="currentColor" stroke-width="2.5"/></svg>לב / משולש</button>
+        </div>
+      </div>
+
+      <div class="finder-step" data-step="2" hidden>
+        <h3>איזה סטייל מדבר אליכם?</h3>
+        <div class="finder-options">
+          <button type="button" class="finder-opt" data-q="style" data-v="classic">קלאסי ומינימלי</button>
+          <button type="button" class="finder-opt" data-q="style" data-v="bold">נועז ובולט</button>
+          <button type="button" class="finder-opt" data-q="style" data-v="light">קליל, בקושי מרגישים</button>
+          <button type="button" class="finder-opt" data-q="style" data-v="retro">רטרו וינטג'</button>
+        </div>
+      </div>
+
+      <div class="finder-step" data-step="3" hidden>
+        <h3>איפה המשקפיים יעבדו הכי קשה?</h3>
+        <div class="finder-options">
+          <button type="button" class="finder-opt" data-q="use" data-v="screen">מול מסכים כל היום</button>
+          <button type="button" class="finder-opt" data-q="use" data-v="daily">כל היום, כל דבר</button>
+          <button type="button" class="finder-opt" data-q="use" data-v="reading">בעיקר קריאה</button>
+          <button type="button" class="finder-opt" data-q="use" data-v="fashion">בעיקר בשביל הלוק</button>
+        </div>
+      </div>
+
+      <div class="finder-step finder-result" data-step="4" hidden>
+        <h3>המסגרת שלכם:</h3>
+        <div class="finder-picks" id="finderPicks"></div>
+        <p class="finder-note" id="finderNote"></p>
+        <div class="finder-actions">
+          <a class="btn btn-primary btn-lg" id="finderWa" href="#" target="_blank" rel="noopener">שלחו לי אותה לוואטסאפ</a>
+          <button type="button" class="btn btn-ghost" id="finderRestart">נסו שוב</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= EYE EXAM / BOOKING ======= -->
+<section class="exam" id="exam">
+  <div class="container exam-grid">
+    <div class="exam-info reveal">
+      <p class="section-kicker">בדיקת ראייה</p>
+      <h2>30 דקות שמשנות את איך שאתם רואים הכל</h2>
+      <ul class="exam-list">
+        <li>בדיקה מקיפה ע"י אופטומטריסט מוסמך</li>
+        <li>מדידת מרשם מדויקת בציוד דיגיטלי</li>
+        <li>בדיקת לחץ תוך עיני ובריאות העין</li>
+        <li>ייעוץ אישי לבחירת עדשות ומסגרת</li>
+      </ul>
+      <div class="exam-img reveal" role="img" aria-label="חדר בדיקת ראייה מקצועי עם מכשור אופטומטרי"></div>
+    </div>
+    <form class="exam-form reveal" id="examForm" novalidate>
+      <h3>קביעת תור</h3>
+      <p class="form-sub">מלאו פרטים ונחזור אליכם תוך שעה בשעות הפעילות.</p>
+      <div class="field">
+        <label for="fName">שם מלא <span aria-hidden="true">*</span></label>
+        <input id="fName" name="name" type="text" autocomplete="name" required>
+        <p class="field-err" hidden>איך קוראים לכם? נשמח לשם.</p>
+      </div>
+      <div class="field">
+        <label for="fPhone">טלפון <span aria-hidden="true">*</span></label>
+        <input id="fPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" dir="ltr" required>
+        <p class="field-err" hidden>צריך מספר טלפון תקין כדי לחזור אליכם.</p>
+      </div>
+      <div class="field">
+        <label for="fWhen">מתי נוח לכם?</label>
+        <select id="fWhen" name="when">
+          <option value="בוקר">בוקר (9:00-12:00)</option>
+          <option value="צהריים">צהריים (12:00-16:00)</option>
+          <option value="ערב">אחר הצהריים / ערב (16:00-19:30)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="fNote">משהו שכדאי שנדע?</label>
+        <textarea id="fNote" name="note" rows="2" placeholder="למשל: מולטיפוקל, ילדים, עדשות מגע..."></textarea>
+      </div>
+      <button class="btn btn-primary btn-lg btn-block" type="submit" id="examSubmit">
+        <span class="btn-label">שריינו לי תור</span>
+        <span class="btn-loading" hidden>שולח...</span>
+      </button>
+      <p class="form-success" id="formSuccess" hidden role="status">מעולה! הפרטים נשלחו לוואטסאפ החנות - נחזור אליכם ממש בקרוב.</p>
+      <p class="form-alt">מעדיפים לדבר? <a href="tel:+97235550000">03-555-0000</a> או <a id="waAlt" href="#" target="_blank" rel="noopener">וואטסאפ ישיר</a></p>
+    </form>
+  </div>
+</section>
+
+<!-- ======= TESTIMONIALS ======= -->
+<section class="reviews" aria-label="לקוחות ממליצים">
+  <div class="container">
+    <header class="section-head reveal">
+      <p class="section-kicker">רואים אותנו בעיניים טובות</p>
+      <h2>לקוחות מספרים</h2>
+    </header>
+    <div class="reviews-grid">
+      <figure class="review reveal">
+        <div class="review-stars" aria-label="5 כוכבים">★★★★★</div>
+        <blockquote>אחרי שנים של משקפיים "בסדר", בפעם הראשונה יצאתי עם משקפיים שאני לא מרגיש בכלל. הבדיקה הכי יסודית שעברתי.</blockquote>
+        <figcaption>אורי מ., רמת גן</figcaption>
+      </figure>
+      <figure class="review reveal">
+        <div class="review-stars" aria-label="5 כוכבים">★★★★★</div>
+        <blockquote>באתי בשביל מסגרת אחת, יצאתי עם התאמה מושלמת ועדשות שסוף סוף לא מסנוורות בנהיגה בלילה. שירות ברמה אחרת.</blockquote>
+        <figcaption>מיכל ל., תל אביב</figcaption>
+      </figure>
+      <figure class="review reveal">
+        <div class="review-stars" aria-label="5 כוכבים">★★★★★</div>
+        <blockquote>הילד שבר את המשקפיים יום לפני טיול שנתי. תיקנו לנו תוך שעה, בחיוך, בלי כסף. לקוחות לכל החיים.</blockquote>
+        <figcaption>משפחת ברק, גבעתיים</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<!-- ======= VISIT ======= -->
+<section class="visit" id="visit">
+  <div class="container visit-grid">
+    <div class="visit-info reveal">
+      <p class="section-kicker">מחכים לכם</p>
+      <h2>בואו למדוד. הקפה עלינו.</h2>
+      <address>
+        <p><strong>אופטיקה פוקוס</strong><br>רחוב הראייה 20, תל אביב</p>
+      </address>
+      <dl class="hours">
+        <div><dt>א'-ה'</dt><dd>9:00-19:30</dd></div>
+        <div><dt>ו' וערבי חג</dt><dd>9:00-14:00</dd></div>
+        <div><dt>שבת</dt><dd>סגור</dd></div>
+      </dl>
+      <div class="visit-actions">
+        <a class="btn btn-primary" href="https://waze.com/ul?q=תל אביב" target="_blank" rel="noopener">נווטו אלינו ב-Waze</a>
+        <a class="btn btn-outline" href="tel:+97235550000">חייגו: 03-555-0000</a>
+      </div>
+    </div>
+    <div class="visit-img reveal" role="img" aria-label="חזית חנות אופטיקה פוקוס"></div>
+  </div>
+</section>
+
+</main>
+
+<!-- ======= FOOTER ======= -->
+<footer class="footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <svg class="brand-glasses" viewBox="0 0 120 48" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="4"><circle cx="30" cy="26" r="16"/><circle cx="90" cy="26" r="16"/><path d="M46 24 q14 -10 28 0"/><path d="M14 22 L4 16 M106 22 L116 16"/></g></svg>
+      <p>אופטיקה פוקוס · רואים את העולם חד יותר</p>
+    </div>
+    <nav class="footer-nav" aria-label="ניווט תחתון">
+      <a href="#collection">משקפי ראייה</a>
+      <a href="#sun">משקפי שמש</a>
+      <a href="#finder">התאמה אונליין</a>
+      <a href="#exam">בדיקת ראייה</a>
+    </nav>
+    <p class="footer-legal">אתר דמו להדגמה בלבד · כל הזכויות שמורות © 2026</p>
+  </div>
+</footer>
+
+<!-- ======= FLOATING WHATSAPP ======= -->
+<a class="wa-float" id="waFloat" href="#" target="_blank" rel="noopener" aria-label="דברו איתנו בוואטסאפ">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path fill="currentColor" d="M16 3C9.4 3 4 8.3 4 14.9c0 2.6.8 5 2.3 7L4 29l7.3-2.2c1.5.8 3.1 1.2 4.7 1.2 6.6 0 12-5.3 12-11.9S22.6 3 16 3zm0 21.6c-1.5 0-3-.4-4.3-1.2l-.3-.2-4.3 1.3 1.3-4.1-.2-.3c-1.3-1.7-2-3.8-2-6.1C6.2 9.4 10.6 5.1 16 5.1s9.8 4.3 9.8 9.8-4.4 9.7-9.8 9.7zm5.4-7.3c-.3-.1-1.7-.9-2-1s-.5-.1-.7.1-.8 1-.9 1.2-.3.2-.6.1c-.3-.1-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5s0-.4 0-.5c-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.4z"/></svg>
+</a>
+
+<!-- ======= STICKY MOBILE CTA ======= -->
+<div class="mobile-cta" id="mobileCta" role="navigation" aria-label="פעולות מהירות">
+  <a href="tel:+97235550000">חיוג</a>
+  <a href="#finder">התאמה אונליין</a>
+  <a href="#exam" class="cta-strong">קביעת תור</a>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
