@@ -43,6 +43,9 @@
             '<img src="' + p.img + '.jpg" alt="משקפי ' + p.name + ' - ' + p.tags + '" loading="lazy" ' +
                  'onerror="this.onerror=null;this.src=\'' + PLACEHOLDER + '\'">' +
           '</picture>' +
+          // real pre-blurred copy on top; sharpening = opacity fade only (never blanks on mobile)
+          '<img class="product-blur" src="' + p.img + '-blur.jpg" alt="" aria-hidden="true" loading="lazy" ' +
+               'onerror="this.remove()">' +
           '<span class="product-gloss" aria-hidden="true"></span>' +
         '</div>' +
         '<div class="product-body">' +
@@ -108,59 +111,81 @@
     });
   }
 
-  /* ---------- vision mode: "put on the glasses" reveal + gentle parallax ---------- */
+  /* ---------- vision mode: tap -> glasses fly in 3D and get "worn" -> world sharpens ---------- */
   var vision = document.getElementById('vision');
   var vStage = document.getElementById('visionStage');
   var vBg = document.getElementById('visionBg');
-  if (vision && vStage && vBg && !reduceMotion) {
-    // replay the put-on-glasses sequence every time the section enters view
+  var vCta = document.getElementById('visionCta');
+  if (vision && vStage && vBg && vCta && !reduceMotion) {
+    var gyroWired = false;
+    var wireGyro = function () {
+      if (gyroWired || typeof DeviceOrientationEvent === 'undefined') return;
+      var attach = function () {
+        gyroWired = true;
+        window.addEventListener('deviceorientation', function (e) {
+          if (e.gamma == null) return;
+          nudge(Math.max(-1, Math.min(1, e.gamma / 25)), Math.max(-1, Math.min(1, (e.beta - 45) / 25)));
+        });
+      };
+      if (typeof DeviceOrientationEvent.requestPermission === 'function') {
+        // iOS: must be called inside a user gesture - the CTA tap is one
+        DeviceOrientationEvent.requestPermission()
+          .then(function (state) { if (state === 'granted') attach(); })
+          .catch(function () {});
+      } else {
+        attach();
+      }
+    };
+
+    var playVision = function () {
+      if (vision.classList.contains('play')) return;
+      vision.classList.add('play');
+      wireGyro();
+      startParallax();
+    };
+    vCta.addEventListener('click', playVision);
+
+    // reset when the section scrolls away so the show replays next visit
     if ('IntersectionObserver' in window) {
       new IntersectionObserver(function (ents) {
         ents.forEach(function (en) {
-          if (en.isIntersecting) vision.classList.add('play');
-          else vision.classList.remove('play');   // reset so it plays again next time
+          if (en.isIntersecting) { startParallax(); }
+          else { stopParallax(); vision.classList.remove('play'); }
         });
-      }, { threshold: 0.45 }).observe(vStage);
-    } else {
-      vision.classList.add('play');
+      }, { threshold: 0.15 }).observe(vStage);
     }
 
-    // gentle parallax on the (now sharp) world - mouse, touch, or device tilt + idle drift
+    // parallax on the world - device tilt (after CTA tap on iOS), mouse, + idle drift
     var pTargetX = 0, pTargetY = 0, pCurX = 0, pCurY = 0, pActive = false, pRAF = null, pAuto = 0, pLastInput = -99999, pClock = 0;
     var renderParallax = function () {
       pClock += 1;
-      if (pClock - pLastInput > 80) {           // idle -> slow automatic drift ("movement")
+      if (pClock - pLastInput > 80) {           // idle -> slow automatic drift
         pAuto += 0.01;
         pTargetX = Math.sin(pAuto) * 0.7;
         pTargetY = Math.cos(pAuto * 0.7) * 0.5;
       }
       pCurX += (pTargetX - pCurX) * 0.07;
       pCurY += (pTargetY - pCurY) * 0.07;
-      vBg.style.setProperty('--px', (pCurX * 18).toFixed(1) + 'px');
-      vBg.style.setProperty('--py', (pCurY * 14).toFixed(1) + 'px');
+      // stronger travel once the glasses are on (the "look around" moment)
+      var amp = vision.classList.contains('play') ? 30 : 12;
+      vBg.style.setProperty('--px', (pCurX * amp).toFixed(1) + 'px');
+      vBg.style.setProperty('--py', (pCurY * amp * 0.72).toFixed(1) + 'px');
       if (pActive) pRAF = requestAnimationFrame(renderParallax); else pRAF = null;
     };
-    var startParallax = function () { if (!pActive) { pActive = true; if (!pRAF) pRAF = requestAnimationFrame(renderParallax); } };
-    var stopParallax = function () { pActive = false; };
-    var nudge = function (nx, ny) {
+    function startParallax() { if (!pActive) { pActive = true; if (!pRAF) pRAF = requestAnimationFrame(renderParallax); } }
+    function stopParallax() { pActive = false; }
+    function nudge(nx, ny) {
       pTargetX = Math.max(-1, Math.min(1, nx));
       pTargetY = Math.max(-1, Math.min(1, ny));
       pLastInput = pClock; startParallax();
-    };
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (ents) {
-        ents.forEach(function (en) { if (en.isIntersecting) startParallax(); else stopParallax(); });
-      }, { threshold: 0.2 }).observe(vStage);
-    } else { startParallax(); }
+    }
     vStage.addEventListener('pointermove', function (e) {
       var r = vStage.getBoundingClientRect();
       nudge(((e.clientX - r.left) / r.width - 0.5) * 2, ((e.clientY - r.top) / r.height - 0.5) * 2);
     }, { passive: true });
-    if (typeof DeviceOrientationEvent !== 'undefined') {
-      window.addEventListener('deviceorientation', function (e) {
-        if (e.gamma == null) return;
-        nudge(Math.max(-1, Math.min(1, e.gamma / 30)), Math.max(-1, Math.min(1, (e.beta - 45) / 30)));
-      });
+    // Android exposes gyro without permission - wire it up front
+    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission !== 'function') {
+      wireGyro();
     }
   }
 

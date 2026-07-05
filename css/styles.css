@@ -202,12 +202,19 @@ button{font:inherit;cursor:pointer}
   position:absolute;inset:-5%;z-index:0;background:#0a0806;
   background-image:image-set(url("../assets/img/hero.webp") type("image/webp"),url("../assets/img/hero.jpg") type("image/jpeg"));
   background-size:cover;background-position:center;
-  filter:blur(calc((1 - var(--clear,0)) * 20px)) brightness(calc(0.4 + var(--clear,0) * 0.55)) saturate(calc(0.5 + var(--clear,0) * 0.6));
+  filter:blur(calc((1 - var(--clear,0)) * 30px)) brightness(calc(0.45 + var(--clear,0) * 0.55)) saturate(calc(0.45 + var(--clear,0) * 0.65));
   transform:scale(1.1) translate(var(--px,0px),var(--py,0px));
-  transition:filter .9s var(--ease) .4s;will-change:filter,transform;
+  transition:filter 1s var(--ease) 1.15s;will-change:filter,transform;
 }
-/* glasses land -> the world snaps into focus */
+/* glasses reach the face -> the world snaps into focus */
 .vision.play .vision-bg{--clear:1}
+/* subtle worn-frame vignette once the glasses are on */
+.vision-vignette{
+  position:absolute;inset:0;z-index:2;pointer-events:none;opacity:0;
+  background:radial-gradient(135% 110% at 50% 46%,transparent 58%,rgba(10,8,6,.55) 88%,rgba(10,8,6,.85) 100%);
+  transition:opacity .8s var(--ease) 1.7s;
+}
+.vision.play .vision-vignette{opacity:1}
 .vision-scrim{
   position:absolute;inset:0;z-index:1;pointer-events:none;
   background:radial-gradient(120% 90% at 50% 45%,transparent 42%,rgba(6,4,3,.72) 100%),linear-gradient(0deg,rgba(6,4,3,.6),transparent 55%);
@@ -215,35 +222,46 @@ button{font:inherit;cursor:pointer}
 /* prompt (before) */
 .vision-prompt{
   position:relative;z-index:3;text-align:center;color:var(--paper);padding:0 24px;
-  transition:opacity .5s var(--ease),transform .5s var(--ease);
+  transition:opacity .4s var(--ease),transform .4s var(--ease);
 }
-.vision.play .vision-prompt{opacity:0;transform:translateY(-18px);pointer-events:none}
+.vision.play .vision-prompt{opacity:0;transform:scale(.92);pointer-events:none}
 .vision-headline{
   font-family:var(--font-display);font-weight:900;font-size:clamp(2.2rem,7vw,4rem);line-height:1.1;
-  text-shadow:0 4px 40px rgba(0,0,0,.8);margin-bottom:10px;
+  text-shadow:0 4px 40px rgba(0,0,0,.8);margin-bottom:22px;
 }
-.vision-headline::after{content:" 👓"}
-.vision-hint{font-size:clamp(1rem,2.4vw,1.3rem);color:#e9dfce;text-shadow:0 2px 20px rgba(0,0,0,.9)}
-/* glasses that fly in from depth */
+.vision-cta{
+  display:inline-block;min-height:56px;padding:15px 34px;border:0;border-radius:999px;
+  background:var(--honey);color:#fff;font-weight:700;font-size:clamp(1.05rem,2.6vw,1.3rem);
+  box-shadow:0 10px 40px rgba(180,121,31,.5);
+  animation:ctaPulse 2s var(--ease) infinite;
+}
+.vision-cta:active{transform:scale(.96)}
+@keyframes ctaPulse{
+  0%,100%{transform:scale(1);box-shadow:0 10px 40px rgba(180,121,31,.5)}
+  50%{transform:scale(1.05);box-shadow:0 14px 55px rgba(180,121,31,.75)}
+}
+/* glasses: fly in from depth, settle, then grow PAST the viewport = "worn" */
 .vision-glasses{
-  position:absolute;z-index:2;width:min(86vw,680px);pointer-events:none;opacity:0;
+  position:absolute;z-index:2;width:min(94vw,760px);pointer-events:none;opacity:0;
   filter:drop-shadow(0 24px 50px rgba(0,0,0,.55));
-  transform:perspective(900px) translate3d(0,-24px,-540px) rotateX(38deg) scale(.5);
+  transform:perspective(1100px) translate3d(0,-30px,-700px) rotateX(30deg) scale(.08);
 }
 .vision-glasses svg{width:100%;height:auto;display:block}
-.vision.play .vision-glasses{animation:glassesOn 1.5s var(--ease) forwards}
-@keyframes glassesOn{
-  0%{opacity:0;transform:perspective(900px) translate3d(0,-24px,-540px) rotateX(38deg) scale(.5)}
-  45%{opacity:1;transform:perspective(900px) translate3d(0,0,0) rotateX(0deg) scale(1)}
-  70%{opacity:1;transform:perspective(900px) scale(1.04)}
-  100%{opacity:0;transform:perspective(900px) scale(1.08)}
+.vision.play .vision-glasses{animation:glassesWear 2.1s cubic-bezier(.4,0,.28,1) forwards}
+@keyframes glassesWear{
+  0%{opacity:0;transform:perspective(1100px) translate3d(0,-30px,-700px) rotateX(30deg) scale(.08)}
+  14%{opacity:1}
+  52%{opacity:1;transform:perspective(1100px) translate3d(0,0,0) rotateX(0deg) scale(1)}
+  64%{opacity:1;transform:perspective(1100px) scale(1.15)}
+  88%{opacity:1;transform:perspective(1100px) scale(5.2)}
+  100%{opacity:0;transform:perspective(1100px) scale(8.5)}
 }
 /* caption (after) */
 .vision-caption{
   position:absolute;z-index:3;left:0;right:0;bottom:7vh;text-align:center;color:var(--paper);
   padding:0 24px;opacity:0;transform:translateY(26px);pointer-events:none;
 }
-.vision.play .vision-caption{animation:visCapIn .7s var(--ease) 1.25s forwards}
+.vision.play .vision-caption{animation:visCapIn .7s var(--ease) 2s forwards}
 @keyframes visCapIn{to{opacity:1;transform:none}}
 .vision-kicker{font-weight:700;letter-spacing:.4em;font-size:.78rem;color:var(--honey);text-transform:uppercase;margin-bottom:12px}
 .vision-title{
@@ -252,11 +270,17 @@ button{font:inherit;cursor:pointer}
   text-shadow:0 4px 40px rgba(0,0,0,.85);
 }
 .vision-title em{font-style:normal;color:var(--honey)}
+.vision-move{
+  margin-top:14px;display:inline-block;font-size:1rem;color:#e9dfce;
+  background:rgba(10,8,6,.5);border:1px solid rgba(250,247,241,.22);border-radius:999px;padding:8px 18px;
+}
+@media (hover:hover){.vision-move{display:none}} /* tilt hint is mobile-only */
 @media (prefers-reduced-motion:reduce){
   .vision-glasses{display:none}
   .vision-bg{filter:blur(0) brightness(.9) saturate(1.05)}
   .vision-prompt{display:none}
   .vision-caption{opacity:1;transform:none;animation:none}
+  .vision-vignette{opacity:1;transition:none}
 }
 
 /* ---------- stats ---------- */
@@ -318,11 +342,16 @@ section{scroll-margin-top:80px}
 @media (hover:none){.product-gloss{display:none}}
 .product-card .product-img img{
   width:100%;height:100%;object-fit:cover;
-  filter:blur(2.5px) saturate(.85);
-  transform:scale(1.02) translateZ(0);
-  backface-visibility:hidden;-webkit-backface-visibility:hidden;
-  transition:filter .4s var(--ease),transform .5s var(--ease);
+  transform:scale(1.02);
+  transition:transform .5s var(--ease);
 }
+/* the "before glasses" look: a real blurred copy stacked on top.
+   Sharpening only animates opacity - immune to mobile GPU layer eviction */
+.product-blur{
+  position:absolute;inset:0;z-index:1;width:100%;height:100%;object-fit:cover;
+  opacity:.94;transition:opacity .45s var(--ease);pointer-events:none;
+}
+.finder-picks .product-blur{display:none} /* quiz results are always sharp */
 .product-card .badge{
   position:absolute;top:14px;inset-inline-start:14px;z-index:2;
   background:var(--ink);color:var(--paper);
@@ -343,16 +372,18 @@ section{scroll-margin-top:80px}
   transition:background .2s,color .2s;
 }
 .product-wa:hover{background:var(--honey);color:var(--white)}
-/* the focus trick (pointer devices only) */
+/* the focus trick (pointer devices only - desktop GPUs handle filters fine) */
 @media (hover:hover){
   .focus-grid:hover .product-card:not(:hover){filter:blur(3px) saturate(.7);opacity:.55}
   .product-card:hover{transform:translateY(-8px) scale(1.03);box-shadow:var(--shadow-lg);z-index:2}
-  .product-card:hover .product-img img{filter:blur(0) saturate(1.05);transform:scale(1.09)}
+  .product-card:hover .product-blur{opacity:0}
+  .product-card:hover .product-img img{transform:scale(1.09)}
 }
-/* touch: tapping toggles .is-focus via JS */
+/* touch: tapping toggles .is-focus via JS. NO filters here - opacity/transform only */
 .product-card.is-focus{transform:translateY(-6px) scale(1.02);box-shadow:var(--shadow-lg);z-index:2}
-.product-card.is-focus .product-img img{filter:blur(0) saturate(1.05);transform:scale(1.08)}
-.focus-grid.has-focus .product-card:not(.is-focus){filter:blur(3px) saturate(.7);opacity:.55}
+.product-card.is-focus .product-blur{opacity:0}
+.product-card.is-focus .product-img img{transform:scale(1.08)}
+.focus-grid.has-focus .product-card:not(.is-focus){opacity:.5}
 
 /* ---------- why ---------- */
 .why{padding:100px 0;background:var(--cream)}
