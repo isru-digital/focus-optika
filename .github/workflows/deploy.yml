@@ -29,6 +29,13 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: .
-      - name: Deploy
+      # GitHub's Pages deploy API sometimes returns a transient "try again later".
+      # First attempt is allowed to fail; a second attempt self-heals without failing the run.
+      - name: Deploy (attempt 1)
+        id: deploy1
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Deploy (retry)
         id: deployment
+        if: steps.deploy1.outcome == 'failure'
         uses: actions/deploy-pages@v4
