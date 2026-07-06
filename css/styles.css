@@ -1,29 +1,32 @@
 /* ============================================================
    אופטיקה פוקוס - דמו אתר תדמית/מכירות לאופטיקה
-   Design system: warm luxury boutique (tortoise acetate mood)
-   ink #17120c | paper #faf7f1 | honey #b4791f | cream #f1e9dc
+   Design system: BRIGHT WHITE LUXURY (gallery / premium optician)
+   ink #1b1b1f | paper #ffffff | accent charcoal-black | greige neutrals
+   Variable names kept (--honey/--cream) but re-valued to the white palette.
    Frank Ruhl Libre (display) + Assistant (body), RTL
    ============================================================ */
 
 :root{
-  --ink:#17120c;
-  --ink-soft:#3d352a;
-  --paper:#faf7f1;
-  --cream:#f1e9dc;
-  --line:#e2d8c6;
-  --honey:#b4791f;
-  --honey-deep:#8a5a14;
-  --honey-soft:#f5e7cd;
-  --white:#fffdf9;
-  --dark:#12100d;
-  --dark-2:#1d1913;
+  --ink:#1b1b1f;          /* near-black text */
+  --ink-soft:#5c5c63;     /* muted grey text */
+  --paper:#ffffff;        /* pure white page */
+  --cream:#f5f5f2;        /* soft mist - alt sections */
+  --line:#e7e6e1;         /* hairline greige borders */
+  --honey:#1f1f24;        /* ACCENT: charcoal-black (CTAs) */
+  --honey-deep:#000000;   /* darker accent / kicker / hover */
+  --honey-soft:#efeeea;   /* cool light-grey chip background */
+  --metal:#8a8c92;        /* cool platinum - refined labels on light */
+  --platinum:#d9d6cf;     /* light platinum - labels on dark sections */
+  --white:#ffffff;
+  --dark:#16161a;         /* charcoal band (footer) */
+  --dark-2:#1f1f24;
   --font-body:'Assistant',system-ui,sans-serif;
   --font-display:'Frank Ruhl Libre',serif;
   --radius:18px;
   --radius-sm:12px;
-  --shadow-sm:0 2px 10px rgba(23,18,12,.07);
-  --shadow-md:0 10px 34px rgba(23,18,12,.13);
-  --shadow-lg:0 24px 60px rgba(23,18,12,.22);
+  --shadow-sm:0 2px 12px rgba(20,20,28,.06);
+  --shadow-md:0 12px 36px rgba(20,20,28,.1);
+  --shadow-lg:0 26px 64px rgba(20,20,28,.16);
   --ease:cubic-bezier(.22,.9,.3,1);
   --lens-x:50vw;
   --lens-y:38vh;
@@ -83,18 +86,22 @@ button{font:inherit;cursor:pointer}
   padding:14px 0;
   transition:background .3s,box-shadow .3s,padding .3s;
   color:var(--paper);
+  /* legible white nav over bright cinema images */
+  filter:drop-shadow(0 2px 10px rgba(0,0,0,.4));
 }
 .site-header.solid{
-  background:rgba(250,247,241,.92);
+  background:rgba(255,255,255,.9);
   backdrop-filter:blur(14px);
   -webkit-backdrop-filter:blur(14px);
   box-shadow:var(--shadow-sm);
   color:var(--ink);
   padding:8px 0;
+  border-bottom:1px solid var(--line);
+  filter:none;
 }
 .nav{display:flex;align-items:center;gap:28px}
 .brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-size:1.15rem}
-.brand-glasses{width:52px;height:22px;color:var(--honey)}
+.brand-glasses{width:52px;height:22px;color:currentColor}
 .brand-name strong{font-weight:700}
 .nav-links{display:flex;gap:26px;list-style:none;margin-inline-start:auto}
 .nav-links a{
@@ -138,12 +145,13 @@ button{font:inherit;cursor:pointer}
 .cine-img-alt{animation-duration:24s;animation-direction:alternate-reverse}
 .cine-scene[data-scene="2"] .cine-img{animation-duration:17s}
 @keyframes kenburns{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.17) translate(-1.5%,1.5%)}}
-/* cinematic letterbox + legibility wash */
+/* legibility wash - images are very bright/high-key, so darken a soft halo
+   behind the centered caption + a gradient top/bottom so white text reads */
 .cine-shade{
   position:absolute;inset:0;z-index:2;pointer-events:none;
   background:
-    linear-gradient(0deg,rgba(8,6,4,.82) 0%,rgba(8,6,4,.1) 42%,rgba(8,6,4,.5) 100%),
-    radial-gradient(120% 80% at 50% 42%,transparent 45%,rgba(8,6,4,.6) 100%);
+    radial-gradient(70% 55% at 50% 50%,rgba(12,12,16,.62) 0%,rgba(12,12,16,.28) 45%,transparent 78%),
+    linear-gradient(0deg,rgba(12,12,16,.6) 0%,rgba(12,12,16,.05) 40%,rgba(12,12,16,.4) 100%);
 }
 /* captions */
 .cine-captions{position:absolute;inset:0;z-index:3;display:grid;place-items:center;text-align:center;pointer-events:none}
@@ -154,30 +162,30 @@ button{font:inherit;cursor:pointer}
 }
 .cine-cap.on{opacity:1;transform:none;pointer-events:auto}
 .cine-kicker{
-  font-weight:700;letter-spacing:.4em;font-size:.82rem;color:var(--honey);
+  font-weight:700;letter-spacing:.4em;font-size:.82rem;color:var(--platinum);
   text-transform:uppercase;margin-bottom:16px;
 }
 .cine-title{
   font-family:var(--font-display);font-weight:900;
   font-size:clamp(2.4rem,6.6vw,5rem);line-height:1.1;margin-bottom:18px;
-  text-shadow:0 4px 46px rgba(0,0,0,.7);
+  text-shadow:0 2px 12px rgba(0,0,0,.55),0 6px 40px rgba(0,0,0,.5);
 }
-.cine-title em{font-style:normal;color:var(--honey)}
-.cine-sub{font-size:clamp(1.05rem,2.2vw,1.35rem);max-width:32em;margin:0 auto;color:#ece2d1;text-shadow:0 2px 24px rgba(0,0,0,.8)}
+.cine-title em{font-style:normal;color:var(--platinum)}
+.cine-sub{font-size:clamp(1.05rem,2.2vw,1.35rem);max-width:32em;margin:0 auto;color:#efeee9;text-shadow:0 2px 24px rgba(0,0,0,.8)}
 .cine-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:28px}
-.cinema .btn-outline{color:var(--paper);border-color:rgba(250,247,241,.7)}
+.cinema .btn-outline{color:var(--paper);border-color:rgba(255,255,255,.7)}
 .cinema .btn-outline:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
 /* HUD: scene counter + progress */
 .cine-hud{position:absolute;z-index:4;bottom:5.5vh;inset-inline-start:6vw;display:flex;align-items:center;gap:16px;pointer-events:none}
 .cine-count{font-family:var(--font-display);font-weight:700;font-size:1.15rem;letter-spacing:.08em}
 .cine-count i{font-style:normal;opacity:.55;font-size:.85rem;margin-inline-start:5px}
 .cine-progress{width:130px;height:3px;background:rgba(250,247,241,.25);border-radius:2px;overflow:hidden}
-.cine-progress span{display:block;height:100%;width:0;background:var(--honey);transition:width .15s linear}
+.cine-progress span{display:block;height:100%;width:0;background:var(--platinum);transition:width .15s linear}
 .cine-cue{position:absolute;bottom:5vh;left:50%;transform:translateX(-50%);z-index:4;width:44px;height:44px;display:grid;place-items:center;pointer-events:none}
 .cine-cue span{width:22px;height:36px;border:2px solid rgba(250,247,241,.6);border-radius:12px;position:relative}
 .cine-cue span::after{
   content:"";position:absolute;top:6px;left:50%;width:4px;height:8px;margin-left:-2px;
-  border-radius:2px;background:var(--honey);animation:cue 1.6s infinite var(--ease);
+  border-radius:2px;background:var(--platinum);animation:cue 1.6s infinite var(--ease);
 }
 @keyframes cue{0%{transform:translateY(0);opacity:1}70%{transform:translateY(12px);opacity:0}100%{opacity:0}}
 
@@ -189,7 +197,7 @@ button{font:inherit;cursor:pointer}
 .row-2{font-size:clamp(2rem,5vw,3.4rem);color:var(--honey-deep)}
 .row-3{font-size:clamp(1.3rem,3vw,2rem)}
 .row-4{font-size:clamp(.95rem,1.8vw,1.15rem);font-family:var(--font-body);font-weight:600;color:var(--ink-soft);margin-top:10px}
-.row-5{font-size:.72rem;font-family:var(--font-body);color:#a99c86;margin-top:8px;letter-spacing:.02em}
+.row-5{font-size:.72rem;font-family:var(--font-body);color:#adadb3;margin-top:8px;letter-spacing:.02em}
 
 /* ---------- vision mode: "put on the glasses" -> world sharpens ----------
    Scroll into view triggers .play: prompt fades, glasses fly in from depth,
@@ -231,14 +239,14 @@ button{font:inherit;cursor:pointer}
 }
 .vision-cta{
   display:inline-block;min-height:56px;padding:15px 34px;border:0;border-radius:999px;
-  background:var(--honey);color:#fff;font-weight:700;font-size:clamp(1.05rem,2.6vw,1.3rem);
-  box-shadow:0 10px 40px rgba(180,121,31,.5);
+  background:#fff;color:var(--ink);font-weight:700;font-size:clamp(1.05rem,2.6vw,1.3rem);
+  box-shadow:0 10px 40px rgba(0,0,0,.4);
   animation:ctaPulse 2s var(--ease) infinite;
 }
 .vision-cta:active{transform:scale(.96)}
 @keyframes ctaPulse{
-  0%,100%{transform:scale(1);box-shadow:0 10px 40px rgba(180,121,31,.5)}
-  50%{transform:scale(1.05);box-shadow:0 14px 55px rgba(180,121,31,.75)}
+  0%,100%{transform:scale(1);box-shadow:0 10px 40px rgba(0,0,0,.35)}
+  50%{transform:scale(1.05);box-shadow:0 16px 55px rgba(0,0,0,.5)}
 }
 /* glasses: fly in from depth, settle, then grow PAST the viewport = "worn" */
 .vision-glasses{
@@ -263,13 +271,13 @@ button{font:inherit;cursor:pointer}
 }
 .vision.play .vision-caption{animation:visCapIn .7s var(--ease) 2s forwards}
 @keyframes visCapIn{to{opacity:1;transform:none}}
-.vision-kicker{font-weight:700;letter-spacing:.4em;font-size:.78rem;color:var(--honey);text-transform:uppercase;margin-bottom:12px}
+.vision-kicker{font-weight:700;letter-spacing:.4em;font-size:.78rem;color:var(--platinum);text-transform:uppercase;margin-bottom:12px}
 .vision-title{
   font-family:var(--font-display);font-weight:900;
   font-size:clamp(1.7rem,4.4vw,3rem);line-height:1.15;
   text-shadow:0 4px 40px rgba(0,0,0,.85);
 }
-.vision-title em{font-style:normal;color:var(--honey)}
+.vision-title em{font-style:normal;color:var(--platinum)}
 .vision-move{
   margin-top:14px;display:inline-block;font-size:1rem;color:#e9dfce;
   background:rgba(10,8,6,.5);border:1px solid rgba(250,247,241,.22);border-radius:999px;padding:8px 18px;
@@ -284,20 +292,20 @@ button{font:inherit;cursor:pointer}
 }
 
 /* ---------- stats ---------- */
-.stats{background:var(--dark);color:var(--paper);padding:56px 0}
+.stats{background:var(--cream);color:var(--ink);padding:64px 0;border-block:1px solid var(--line)}
 .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;text-align:center}
 .stat-num{
   display:block;font-family:var(--font-display);font-weight:900;
-  font-size:clamp(2.2rem,4.5vw,3.4rem);color:var(--honey);
+  font-size:clamp(2.2rem,4.5vw,3.4rem);color:var(--ink);
   font-variant-numeric:tabular-nums;
 }
-.stat-label{font-size:.98rem;color:#cfc4b0}
+.stat-label{font-size:.98rem;color:var(--ink-soft)}
 
 /* ---------- sections shared ---------- */
 section{scroll-margin-top:80px}
 .section-head{text-align:center;max-width:640px;margin:0 auto 48px}
 .section-kicker{
-  color:var(--honey-deep);font-weight:700;letter-spacing:.28em;font-size:.8rem;
+  color:var(--metal);font-weight:700;letter-spacing:.3em;font-size:.8rem;
   text-transform:uppercase;margin-bottom:10px;
 }
 .section-head h2{
@@ -360,10 +368,10 @@ section{scroll-margin-top:80px}
 .product-card .badge.badge-honey{background:var(--honey);color:var(--white)}
 .product-body{padding:18px 20px 20px}
 .product-body h3{font-family:var(--font-display);font-size:1.25rem;font-weight:700}
-.product-tags{color:#8d8170;font-size:.9rem;margin:2px 0 10px}
+.product-tags{color:#7c7c83;font-size:.9rem;margin:2px 0 10px}
 .product-foot{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .product-price{font-weight:700;font-size:1.15rem;font-variant-numeric:tabular-nums}
-.product-price small{font-weight:400;color:#8d8170;font-size:.8rem;display:block;line-height:1.2}
+.product-price small{font-weight:400;color:#7c7c83;font-size:.8rem;display:block;line-height:1.2}
 .product-wa{
   display:inline-flex;align-items:center;gap:6px;
   min-height:44px;padding:8px 16px;border-radius:999px;
@@ -403,14 +411,9 @@ section{scroll-margin-top:80px}
 .why-card h3{font-family:var(--font-display);font-size:1.3rem;margin-bottom:8px}
 .why-card p{color:var(--ink-soft)}
 
-/* ---------- sunglasses (dark band) ---------- */
-.sun{padding:110px 0;background:linear-gradient(180deg,var(--dark) 0%,var(--dark-2) 100%);color:var(--paper)}
-.sun .product-card{background:#221d15;border-color:#37301f}
-.sun .product-body h3{color:var(--paper)}
-.sun .product-tags{color:#9d9078}
-.sun .product-price{color:var(--paper)}
-.sun .product-price small{color:#9d9078}
-.sun .product-img{background:linear-gradient(150deg,#2c2517,#191510)}
+/* ---------- sunglasses (light band, dove-grey product plates) ---------- */
+.sun{padding:110px 0;background:var(--paper)}
+.sun .product-img{background:linear-gradient(150deg,#eeedea,#e2e1dc)}
 .sun-grid{grid-template-columns:repeat(3,1fr)}
 
 /* ---------- finder ---------- */
@@ -461,7 +464,7 @@ section{scroll-margin-top:80px}
   background:var(--honey) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3'%3E%3Cpath d='M5 13l4 4 10-11'/%3E%3C/svg%3E") center/12px no-repeat;
 }
 .exam-img{
-  aspect-ratio:16/10;border-radius:var(--radius);background:#b09a72;
+  aspect-ratio:16/10;border-radius:var(--radius);background:#e7e6e1;
   background-image:image-set(url("../assets/img/exam-room.webp") type("image/webp"),url("../assets/img/exam-room.jpg") type("image/jpeg"));
   background-size:cover;background-position:center;
   box-shadow:var(--shadow-md);
@@ -483,7 +486,7 @@ section{scroll-margin-top:80px}
 }
 .field textarea{resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{
-  outline:none;border-color:var(--honey);box-shadow:0 0 0 3px rgba(180,121,31,.18);
+  outline:none;border-color:var(--honey);box-shadow:0 0 0 3px rgba(27,27,31,.14);
 }
 .field.err input{border-color:#c0392b}
 .field-err{color:#c0392b;font-size:.88rem;margin-top:5px}
@@ -525,15 +528,15 @@ section{scroll-margin-top:80px}
   box-shadow:var(--shadow-lg);
 }
 
-/* ---------- footer ---------- */
-.footer{background:var(--dark);color:#cfc4b0;padding:54px 0 90px}
+/* ---------- footer (elegant charcoal anchor) ---------- */
+.footer{background:var(--dark);color:#b7b7bd;padding:54px 0 90px}
 .footer-grid{display:grid;grid-template-columns:1fr auto;gap:26px;align-items:center}
 .footer-brand{display:flex;align-items:center;gap:14px}
-.footer-brand .brand-glasses{color:var(--honey)}
+.footer-brand .brand-glasses{color:var(--platinum)}
 .footer-nav{display:flex;flex-wrap:wrap;gap:20px}
 .footer-nav a{text-decoration:none;font-weight:600}
-.footer-nav a:hover{color:var(--honey)}
-.footer-legal{grid-column:1/-1;font-size:.85rem;color:#8d8170;border-top:1px solid #2b251b;padding-top:18px}
+.footer-nav a:hover{color:#fff}
+.footer-legal{grid-column:1/-1;font-size:.85rem;color:#83838a;border-top:1px solid #2c2c31;padding-top:18px}
 
 /* ---------- floating whatsapp ---------- */
 .wa-float{
@@ -549,7 +552,7 @@ section{scroll-margin-top:80px}
 /* ---------- sticky mobile CTA ---------- */
 .mobile-cta{
   position:fixed;bottom:0;inset-inline:0;z-index:95;display:none;
-  background:rgba(250,247,241,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  background:rgba(255,255,255,.96);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
   border-top:1px solid var(--line);
   padding:10px 12px calc(10px + env(safe-area-inset-bottom));
   grid-template-columns:1fr 1.2fr 1.3fr;gap:8px;
